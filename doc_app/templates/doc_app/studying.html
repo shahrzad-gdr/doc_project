@@ -1,0 +1,36 @@
+{% extends 'doc_app/_temp.html' %}
+
+{% block title %}
+    all students
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if list %}
+            <table class="table">
+                <thead class="table-info">
+                    <tr>
+                        <th> student </th>
+                        <th> course </th>
+                        <th> academy </th>
+                        <th> status </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.submitted_course.student.first_name }} {{ item.submitted_course.student.last_name }}</td>
+                            <td>{{ item.submitted_course.course.name }} </td>
+                            <td> {{ item.submitted_course.course.academy.name }}</td>
+                            <td> {{ item.get_status_display }}</td>
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p> There is no record to display.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
