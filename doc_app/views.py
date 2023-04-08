@@ -75,3 +75,38 @@ def studying(request):
     return render(request, 'doc_app/studying.html', context)
 
 
+
+
+"""
+=========================================================================================
+    create file
+=========================================================================================
+"""
+def crate_certification(request, id):
+    url = request.META.get('HTTP_REFERER')
+
+    this_student = Result.objects.get(submitted_course__student__student_id=id)
+
+    path = 'media/'
+    doc = DocxTemplate(path + "certificate_temp.docx")
+
+    image_data = open(this_student.submitted_course.course.academy.logo.path, 'rb').read()
+
+
+    context = {
+        'student': this_student.submitted_course.student.first_name + ' ' + this_student.submitted_course.student.last_name ,
+        'course': this_student.submitted_course.course.academy.name,
+        'academy': this_student.submitted_course.course.name,
+        'date': this_student.graduation_date,
+        'logo': InlineImage(doc, BytesIO(image_data)),
+        'gender': this_student.submitted_course.student.get_gender_display(),
+
+    }
+
+    doc.render(context)
+    doc.save('media/certificate/' + f"{this_student.id}.docx")
+
+    this_student.certificate_file = 'media/certificate/' + f"{this_student.id}.docx"
+    this_student.save()
+
+    return redirect(url)
