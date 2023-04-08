@@ -23,3 +23,21 @@ def all_students(request):
     }
     return render(request, 'doc_app/all_students.html', context)
 
+
+
+
+"""
+=========================================================================================
+    show all courses
+=========================================================================================
+"""
+def all_courses(request):
+
+    queryset = Course.objects.all()
+
+    context = {
+        'list' : queryset,
+    }
+    return render(request, 'doc_app/courses.html', context)
+
+
