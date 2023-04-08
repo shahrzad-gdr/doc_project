@@ -40,3 +40,25 @@ class Course(models.Model):
 
     def __str__(self):
         return  self.name
+
+
+
+
+class Student(models.Model):
+    class Meta:
+        verbose_name = 'Student'
+        verbose_name_plural = 'Students'
+
+    class GENDER_TYPE(models.TextChoices):
+        FEMALE = 'F', 'Mrs.'    # if you need persian values: FEMALE = 'F', 'زن'
+        MALE = 'M', 'Mr.'       # if you need persian values: MALE = 'M', 'مرد'
+
+    student = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='student')
+    first_name = models.CharField(max_length=20, verbose_name='first name')
+    last_name = models.CharField(max_length=20, verbose_name='last name')
+    gender = models.CharField(max_length=1, choices=GENDER_TYPE, default='F')
+
+    def __str__(self):
+        return self.first_name , self.last_name
+
+
