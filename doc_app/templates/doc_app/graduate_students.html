@@ -1,0 +1,49 @@
+{% extends 'doc_app/_temp.html' %}
+
+{% block title %}
+    graduate students
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        {% if list %}
+            <table class="table">
+                <thead class="table-info">
+                    <tr>
+                        <th> student </th>
+                        <th> course </th>
+                        <th> submitted date </th>
+                        <th> status </th>
+                        <th> grade </th>
+                        <th> certificate </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list %}
+                        <tr>
+                            <td>{{ item.submitted_course.student.first_name }} {{ item.submitted_course.student.last_name }}</td>
+                            <td>{{ item.submitted_course.course.name }} </td>
+                            <td> {{ item.submitted_course.submit_date }}</td>
+                            <td> {{ item.get_status_display }}</td>
+                            <td> {{ item.get_grade_display }}</td>
+                            {% if item.certificate_file %}
+                                <td>
+                                    <a class="btn btn-outline-warning" href="{{ item.certificate_file.url }} "> show file</a>
+                                </td>
+
+                            {% else %}
+                                <td>
+                                    <a class="btn btn-info" href="{% url 'crate_certification' item.submitted_course.student.student.id %} "> create file</a>
+                                </td>
+                            {% endif %}
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p> There is no record to display.</p>
+        {% endif %}
+    </div>
+{% endblock %}
