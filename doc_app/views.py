@@ -58,3 +58,20 @@ def graduate_students(request):
     return render(request, 'doc_app/graduate_students.html', context)
 
 
+
+
+"""
+=========================================================================================
+    show studying students
+=========================================================================================
+"""
+def studying(request):
+
+    queryset = Result.objects.filter(status='E')
+
+    context = {
+        'list' : queryset,
+    }
+    return render(request, 'doc_app/studying.html', context)
+
+
