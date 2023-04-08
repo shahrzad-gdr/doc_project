@@ -23,3 +23,20 @@ class Academy(models.Model):
         return self.name
 
 
+
+class Course(models.Model):
+    class Meta:
+        verbose_name = 'Course'
+        verbose_name_plural = 'Courses'
+
+    class COURSE_STATUS(models.TextChoices):
+          AVAILABLE = 'A', 'Available'
+          EXPIRED = 'E', 'Expired'
+
+
+    academy = models.ForeignKey(Academy, on_delete=models.CASCADE, verbose_name='academy')
+    name    = models.CharField(max_length=20, verbose_name='course')
+    status  = models.CharField(max_length=1, choices=COURSE_STATUS)
+
+    def __str__(self):
+        return  self.name
