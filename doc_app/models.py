@@ -62,3 +62,22 @@ class Student(models.Model):
         return self.first_name , self.last_name
 
 
+
+class Submitted_Course(models.Model):
+    class Meta:
+        verbose_name = 'Submitted_Course'
+        verbose_name_plural = 'Submitted_Courses'
+
+    class GENDER_TYPE(models.TextChoices):
+        FEMALE = 'F', 'Mrs.'    # if you need persian values: FEMALE = 'F', 'زن'
+        MALE = 'M', 'Mr.'       # if you need persian values: MALE = 'M', 'مرد'
+
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='student')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='course')
+    submit_date = models.DateField(auto_now_add=True, verbose_name='date')
+
+
+    def __str__(self):
+        return self.student
+
+
