@@ -36,7 +36,7 @@ class Course(models.Model):
 
     academy = models.ForeignKey(Academy, on_delete=models.CASCADE, verbose_name='academy')
     name    = models.CharField(max_length=20, verbose_name='course')
-    status  = models.CharField(max_length=1, choices=COURSE_STATUS)
+    status  = models.CharField(max_length=1, choices=COURSE_STATUS.choices)
 
     def __str__(self):
         return  self.name
@@ -56,7 +56,7 @@ class Student(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='student')
     first_name = models.CharField(max_length=20, verbose_name='first name')
     last_name = models.CharField(max_length=20, verbose_name='last name')
-    gender = models.CharField(max_length=1, choices=GENDER_TYPE, default='F')
+    gender = models.CharField(max_length=1, choices=GENDER_TYPE.choices, default='F')
 
     def __str__(self):
         return self.first_name , self.last_name
@@ -97,9 +97,9 @@ class Result(models.Model):
         C = 'C', 'C'
 
     submitted_course = models.OneToOneField(Submitted_Course, on_delete=models.CASCADE, verbose_name='submitted course')
-    status = models.CharField(max_length=1, default='E', choices=STATUS_TYPE, verbose_name='status')
+    status = models.CharField(max_length=1, default='E', choices=STATUS_TYPE.choices, verbose_name='status')
     # grade  = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2,  verbose_name='grade')
-    grade = models.CharField(blank=True, null=True, choices=GRADE_TYPE, verbose_name='grade')
+    grade = models.CharField(max_length=1, blank=True, null=True, choices=GRADE_TYPE.choices, verbose_name='grade')
     validation = models.ImageField(upload_to='media/validation/', verbose_name='validation', blank=True, null=True)
 
     def __str__(self):
