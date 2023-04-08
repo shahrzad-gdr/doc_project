@@ -41,3 +41,20 @@ def all_courses(request):
     return render(request, 'doc_app/courses.html', context)
 
 
+
+
+"""
+=========================================================================================
+    show graduate students
+=========================================================================================
+"""
+def graduate_students(request):
+
+    queryset = Result.objects.filter(status='G')
+
+    context = {
+        'list' : queryset,
+    }
+    return render(request, 'doc_app/graduate_students.html', context)
+
+
