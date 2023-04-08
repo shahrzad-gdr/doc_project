@@ -78,7 +78,8 @@ class Submitted_Course(models.Model):
 
 
     def __str__(self):
-        return self.student
+        return f"{self.student}"
+
 
 
 class Result(models.Model):
