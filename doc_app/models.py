@@ -10,8 +10,8 @@ from django.db import models
 
 class Academy(models.Model):
     class Meta:
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = 'Academy'
+        verbose_name_plural = 'Academies'
 
 
     name         = models.CharField(max_length=20, verbose_name='academy')
