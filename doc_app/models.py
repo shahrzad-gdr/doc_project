@@ -59,7 +59,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_TYPE.choices, default='F')
 
     def __str__(self):
-        return self.first_name , self.last_name
+        return f"{self.first_name} , {self.last_name}"
 
 
 
