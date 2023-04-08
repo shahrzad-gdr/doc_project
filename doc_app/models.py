@@ -81,3 +81,27 @@ class Submitted_Course(models.Model):
         return self.student
 
 
+class Result(models.Model):
+    class Meta:
+        verbose_name = 'Result'
+        verbose_name_plural = 'Results'
+
+    class STATUS_TYPE(models.TextChoices):
+        EDUCATE = 'E', 'Educate'
+        GRADUATE = 'G', 'Graduate'
+        CANCEL = 'C', 'Cancel'
+
+    class GRADE_TYPE(models.TextChoices):  # or you can ignore choice and consider a decimalField for grade
+        A = 'A', 'A'
+        B = 'B', 'B'
+        C = 'C', 'C'
+
+    submitted_course = models.OneToOneField(Submitted_Course, on_delete=models.CASCADE, verbose_name='submitted course')
+    status = models.CharField(max_length=1, default='E', choices=STATUS_TYPE, verbose_name='status')
+    # grade  = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2,  verbose_name='grade')
+    grade = models.CharField(blank=True, null=True, choices=GRADE_TYPE, verbose_name='grade')
+    validation = models.ImageField(upload_to='media/validation/', verbose_name='validation', blank=True, null=True)
+
+    def __str__(self):
+        return self.submitted_course.student, self.submitted_course.course
+
