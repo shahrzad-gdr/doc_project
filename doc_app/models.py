@@ -102,8 +102,12 @@ class Result(models.Model):
     status = models.CharField(max_length=1, default='E', choices=STATUS_TYPE.choices, verbose_name='status')
     # grade  = models.DecimalField(blank=True, null=True, max_digits=5, decimal_places=2,  verbose_name='grade')
     grade = models.CharField(max_length=1, blank=True, null=True, choices=GRADE_TYPE.choices, verbose_name='grade')
-    validation = models.ImageField(upload_to='media/validation/', verbose_name='validation', blank=True, null=True)
+    certificate_file = models.FileField(upload_to='media/certificate/', blank=True, null=True)
+    graduation_date = models.DateField(auto_now=True)
+
+
+
 
     def __str__(self):
-        return self.submitted_course.student, self.submitted_course.course
+        return f'{self.submitted_course.student} , {self.submitted_course.course}'
 
