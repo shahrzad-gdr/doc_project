@@ -67,6 +67,7 @@ class Submitted_Course(models.Model):
     class Meta:
         verbose_name = 'Submitted_Course'
         verbose_name_plural = 'Submitted_Courses'
+        unique_together = ['student', 'course']
 
     class GENDER_TYPE(models.TextChoices):
         FEMALE = 'F', 'Mrs.'    # if you need persian values: FEMALE = 'F', 'زن'
@@ -78,7 +79,7 @@ class Submitted_Course(models.Model):
 
 
     def __str__(self):
-        return f"{self.student}"
+        return f"{self.student}, {self.course}"
 
 
 
