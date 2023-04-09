@@ -8,6 +8,9 @@ from django.db import models
 
 
 
+def logo_directory_path(instance, filename):
+    return datetime.datetime.now().strftime('media/logo/%Y/%m/%d/') + str(uuid.uuid4()) + str(os.path.splitext(filename)[1])
+
 class Academy(models.Model):
     class Meta:
         verbose_name = 'Academy'
@@ -16,7 +19,7 @@ class Academy(models.Model):
 
     name         = models.CharField(max_length=20, verbose_name='academy')
     manager_name = models.CharField(max_length=50, verbose_name='name')
-    logo         = models.ImageField(upload_to='media/logo/', verbose_name='logo')
+    logo         = models.ImageField(upload_to=logo_directory_path, verbose_name='logo')
 
 
     def __str__(self):
